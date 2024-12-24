@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import { IconPackage, IconUser } from "@tabler/icons-react";
+import { IconDatabase, IconPackage, IconUser } from "@tabler/icons-react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -45,5 +45,10 @@ const resources = [
     href: "/pelanggan",
     text: "Pelanggan",
     icon: <IconUser />,
+  },
+  {
+    href: "/connection",
+    text: "Connection",
+    icon: <IconDatabase />,
   }
 ];

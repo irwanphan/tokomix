@@ -21,4 +21,18 @@ export default defineConfig({
     }),
     tsconfigPaths(),
   ],
+  build: {
+    sourcemap: false, // Nonaktifkan sourcemap
+  },
+  optimizeDeps: {
+    exclude: ["@remix-run/react"],
+  },
+  server: {
+    headers: {
+      "Content-Type": "application/javascript", // Pastikan file JS dikirim dengan tipe MIME yang benar
+    },
+    hmr: {
+      overlay: true, // Menampilkan overlay error di browser
+    },
+  },
 });

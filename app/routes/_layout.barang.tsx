@@ -1,14 +1,7 @@
 import { json, type LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import mysql from 'mysql2/promise';
-
-// Definisikan tipe data untuk item
-type Item = {
-  id: number;
-  nama: string;
-  stok: number;
-  deskripsi: string;
-};
+import { TypeBarang } from "../lib/types/barang";
 
 // Tambahkan loader
 export const loader: LoaderFunction = async () => {
@@ -24,7 +17,7 @@ export const loader: LoaderFunction = async () => {
     // Tambahkan log untuk debugging
     console.log('Mencoba koneksi ke database...');
     
-    const [rows] = await connection.execute('SELECT * FROM tbakun');
+    const [rows] = await connection.execute('SELECT * FROM tbbarang');
     await connection.end();
     
     console.log('Data berhasil diambil:', rows);
@@ -40,17 +33,15 @@ export const loader: LoaderFunction = async () => {
 };
 
 export default function Barang() {
-  const { items } = useLoaderData<{ items: Item[] }>();
+  const { items } = useLoaderData<{ items: TypeBarang[] }>();
 
   return (
     <div>
       <h1>Daftar Barang</h1>
       <ul>
         {items.map((item) => (
-          <li key={item.id}>
-            <h2>{item.nama}</h2>
-            <p>Stok: {item.stok}</p>
-            <p>Deskripsi: {item.deskripsi}</p>
+          <li key={item.Kode}>
+            <p>{item.Nama}</p>
           </li>
         ))}
       </ul>

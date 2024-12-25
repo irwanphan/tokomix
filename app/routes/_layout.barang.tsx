@@ -1,5 +1,5 @@
 import { json, type LoaderFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import mysql from 'mysql2/promise';
 import { TypeBarang } from "../lib/types/barang";
 
@@ -41,7 +41,9 @@ export default function Barang() {
       <ul>
         {items.map((item) => (
           <li key={item.Kode}>
-            <p>{item.Nama}</p>
+            <Link to={`/barang/${item.Kode}`} className="block">
+              <p>{item.Nama}</p>
+            </Link>
           </li>
         ))}
       </ul>

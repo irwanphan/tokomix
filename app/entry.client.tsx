@@ -5,14 +5,28 @@
  */
 
 import { RemixBrowser } from "@remix-run/react";
-import { startTransition, StrictMode } from "react";
+// import { startTransition, StrictMode } from "react";
 import { hydrateRoot } from "react-dom/client";
 
-startTransition(() => {
-  hydrateRoot(
-    document,
-    <StrictMode>
-      <RemixBrowser />
-    </StrictMode>
-  );
-});
+// startTransition(() => {
+//   hydrateRoot(
+//     document,
+//     <StrictMode>
+//       <RemixBrowser />
+//     </StrictMode>
+//   );
+// });
+
+hydrateRoot(document, <RemixBrowser />);
+
+const originalFetch = window.fetch;
+window.fetch = async (input, init = {}) => {
+  const dbSettings = localStorage.getItem("db_settings");
+  if (dbSettings) {
+    init.headers = {
+      ...init.headers,
+      "x-db-settings": dbSettings, // Tambahkan konfigurasi database ke header
+    };
+  }
+  return originalFetch(input, init);
+};

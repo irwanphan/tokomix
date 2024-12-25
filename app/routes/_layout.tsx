@@ -1,5 +1,5 @@
 import { Outlet } from "@remix-run/react";
-import { IconDatabase, IconPackage, IconUser } from "@tabler/icons-react";
+import { IconDatabase, IconPackage } from "@tabler/icons-react";
 
 export default function Layout() {
   return (
@@ -14,6 +14,12 @@ export default function Layout() {
               <a href="/barang" className="flex items-center gap-2">
                 <IconPackage />
                 Barang
+              </a>
+            </li>
+            <li>
+              <a href="/connection" className="flex items-center gap-2">
+                <IconDatabase />
+                Connection
               </a>
             </li>
           </ul>

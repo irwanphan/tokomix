@@ -1,36 +1,16 @@
 import { json, type LoaderFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
-import mysql from 'mysql2/promise';
+import { runQuery } from "~/lib/utils/db";
 import { TypeBarang } from "../lib/types/barang";
 
-// Tambahkan loader
+// Loader untuk mengambil data barang
 export const loader: LoaderFunction = async () => {
   try {
-    const connection = await mysql.createConnection({
-      host: 'localhost',
-      port: 8889,
-      user: 'root',
-      password: 'root',
-      database: 'tokopro_nja'
-    });
-
-    // Tambahkan log untuk debugging
-    console.log('Mencoba koneksi ke database...');
-    
-    const [rows] = await connection.execute('SELECT * FROM tbbarang');
-    await connection.end();
-    
-    console.log('Data berhasil diambil:', rows);
-    
-    return json({ items: rows });
+    const items = await runQuery<TypeBarang>("SELECT * FROM tbbarang");
+    return json({ items });
   } catch (error: unknown) {
-    // Log error lengkap
-    console.error('Error detail:', error);
-    // Throw error dengan informasi lebih detail
-    if (error instanceof Error) {
-      throw new Error(`Gagal memuat data: ${error.message}`);
-    }
-    throw new Error('Gagal memuat data: Error tidak diketahui');
+    console.error("Error detail:", error);
+    throw new Error("Gagal memuat data: " + (error instanceof Error ? error.message : "Error tidak diketahui"));
   }
 };
 

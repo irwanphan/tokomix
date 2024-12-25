@@ -25,7 +25,7 @@ export default function Layout() {
         </div>
       </header>
 
-      <div className="flex-1 flex p-4">
+      <div className="flex-1 flex p-4 pt-16">
         <Outlet />
       </div>
     </div>

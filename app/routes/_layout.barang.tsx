@@ -23,12 +23,14 @@ export const loader: LoaderFunction = async () => {
     console.log('Data berhasil diambil:', rows);
     
     return json({ items: rows });
-  } catch (error: any) {
+  } catch (error: unknown) {
     // Log error lengkap
     console.error('Error detail:', error);
-    
     // Throw error dengan informasi lebih detail
-    throw new Error(`Gagal memuat data: ${error.message}`);
+    if (error instanceof Error) {
+      throw new Error(`Gagal memuat data: ${error.message}`);
+    }
+    throw new Error('Gagal memuat data: Error tidak diketahui');
   }
 };
 

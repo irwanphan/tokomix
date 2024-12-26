@@ -8,6 +8,8 @@ import {
 import type { LinksFunction } from "@remix-run/node";
 
 import "./tailwind.css";
+import 'ag-grid-community/styles/ag-grid.css'; // Core AG Grid CSS
+import 'ag-grid-community/styles/ag-theme-alpine.css'; // Optional theme
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
